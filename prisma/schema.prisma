@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id            String         @unique
+  name          String
+  email         String
+  balance_coins Int
+  transactions  transactions[]
+  created_at    DateTime       @db.Date
+  updated_at    DateTime       @db.Date
+}
+
+model shops {
+  id                String         @unique
+  name              String
+  conversion_points Int
+  subsidiaries      subsidiaries[]
+  campanies         campaigns[]
+  rewards           rewards[]
+  created_at        DateTime       @db.Date
+  updated_at        DateTime       @db.Date
+}
+
+model subsidiaries {
+  id           String         @unique
+  name         String
+  shop         shops          @relation(fields: [shop_id], references: [id], onDelete: Cascade)
+  shop_id      String
+  campanies    campaigns[]
+  transactions transactions[]
+  created_at   DateTime       @db.Date
+  updated_at   DateTime       @db.Date
+}
+
+model campaigns {
+  id             String       @unique
+  name           String
+  description    String?
+  date_init      DateTime?    @db.Date
+  date_finish    DateTime?    @db.Date
+  reward         Float
+  minimum_amount Int?
+  shop           shops        @relation(fields: [shop_id], references: [id], onDelete: Cascade)
+  shop_id        String
+  subsidiary     subsidiaries @relation(fields: [subsidiary_id], references: [id], onDelete: Cascade)
+  subsidiary_id  String
+  is_cumulative  Boolean
+  created_at     DateTime     @db.Date
+  updated_at     DateTime     @db.Date
+}
+
+model rewards {
+  id          String    @unique
+  name        String
+  description String?
+  points      Int?
+  coins       Int?
+  thumbnail   String?
+  shop        shops     @relation(fields: [shop_id], references: [id], onDelete: Cascade)
+  shop_id     String
+  due_date    DateTime? @db.Date
+  stock       Int?
+  created_at  DateTime  @db.Date
+  updated_at  DateTime  @db.Date
+}
+
+model transactions {
+  id               String           @unique
+  user             users            @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id          String
+  subsidiary       subsidiaries     @relation(fields: [subsidiary_id], references: [id], onDelete: Cascade)
+  subsidiary_id    String
+  type_transaction TYPE_TRANSACTION
+  type_currency    TYPE_CURRENCY
+  valor            Int
+  real_money       Int?
+  created_at       DateTime         @db.Date
+  updated_at       DateTime         @db.Date
+}
+
+enum TYPE_TRANSACTION {
+  income
+  outgoing
+}
+
+enum TYPE_CURRENCY {
+  coins
+  points
+}
