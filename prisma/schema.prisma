@@ -16,19 +16,19 @@ model users {
   email         String
   balance_coins Int
   transactions  transactions[]
-  created_at    DateTime       @db.Date
-  updated_at    DateTime       @db.Date
+  created_at    DateTime
+  updated_at    DateTime
 }
 
 model shops {
   id                String         @unique
-  name              String
+  name              String         @unique
   conversion_points Int
   subsidiaries      subsidiaries[]
   campanies         campaigns[]
   rewards           rewards[]
-  created_at        DateTime       @db.Date
-  updated_at        DateTime       @db.Date
+  created_at        DateTime
+  updated_at        DateTime
 }
 
 model subsidiaries {
@@ -38,16 +38,16 @@ model subsidiaries {
   shop_id      String
   campanies    campaigns[]
   transactions transactions[]
-  created_at   DateTime       @db.Date
-  updated_at   DateTime       @db.Date
+  created_at   DateTime
+  updated_at   DateTime
 }
 
 model campaigns {
   id             String       @unique
   name           String
   description    String?
-  date_init      DateTime?    @db.Date
-  date_finish    DateTime?    @db.Date
+  date_init      DateTime?
+  date_finish    DateTime?
   reward         Float
   minimum_amount Int?
   shop           shops        @relation(fields: [shop_id], references: [id], onDelete: Cascade)
@@ -55,8 +55,8 @@ model campaigns {
   subsidiary     subsidiaries @relation(fields: [subsidiary_id], references: [id], onDelete: Cascade)
   subsidiary_id  String
   is_cumulative  Boolean
-  created_at     DateTime     @db.Date
-  updated_at     DateTime     @db.Date
+  created_at     DateTime
+  updated_at     DateTime
 }
 
 model rewards {
@@ -70,8 +70,8 @@ model rewards {
   shop_id     String
   due_date    DateTime? @db.Date
   stock       Int?
-  created_at  DateTime  @db.Date
-  updated_at  DateTime  @db.Date
+  created_at  DateTime
+  updated_at  DateTime
 }
 
 model transactions {
@@ -84,8 +84,8 @@ model transactions {
   type_currency    TYPE_CURRENCY
   valor            Int
   real_money       Int?
-  created_at       DateTime         @db.Date
-  updated_at       DateTime         @db.Date
+  created_at       DateTime
+  updated_at       DateTime
 }
 
 enum TYPE_TRANSACTION {

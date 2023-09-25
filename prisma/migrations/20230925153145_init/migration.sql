@@ -10,8 +10,8 @@ CREATE TABLE "users" (
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "balance_coins" INTEGER NOT NULL,
-    "created_at" DATE NOT NULL,
-    "updated_at" DATE NOT NULL
+    "created_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3) NOT NULL
 );
 
 -- CreateTable
@@ -19,8 +19,8 @@ CREATE TABLE "shops" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "conversion_points" INTEGER NOT NULL,
-    "created_at" DATE NOT NULL,
-    "updated_at" DATE NOT NULL
+    "created_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3) NOT NULL
 );
 
 -- CreateTable
@@ -28,8 +28,8 @@ CREATE TABLE "subsidiaries" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "shop_id" TEXT NOT NULL,
-    "created_at" DATE NOT NULL,
-    "updated_at" DATE NOT NULL
+    "created_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3) NOT NULL
 );
 
 -- CreateTable
@@ -37,15 +37,15 @@ CREATE TABLE "campaigns" (
     "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "description" TEXT,
-    "date_init" DATE,
-    "date_finish" DATE,
+    "date_init" TIMESTAMP(3),
+    "date_finish" TIMESTAMP(3),
     "reward" DOUBLE PRECISION NOT NULL,
     "minimum_amount" INTEGER,
     "shop_id" TEXT NOT NULL,
     "subsidiary_id" TEXT NOT NULL,
     "is_cumulative" BOOLEAN NOT NULL,
-    "created_at" DATE NOT NULL,
-    "updated_at" DATE NOT NULL
+    "created_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3) NOT NULL
 );
 
 -- CreateTable
@@ -59,8 +59,8 @@ CREATE TABLE "rewards" (
     "shop_id" TEXT NOT NULL,
     "due_date" DATE,
     "stock" INTEGER,
-    "created_at" DATE NOT NULL,
-    "updated_at" DATE NOT NULL
+    "created_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3) NOT NULL
 );
 
 -- CreateTable
@@ -72,8 +72,8 @@ CREATE TABLE "transactions" (
     "type_currency" "TYPE_CURRENCY" NOT NULL,
     "valor" INTEGER NOT NULL,
     "real_money" INTEGER,
-    "created_at" DATE NOT NULL,
-    "updated_at" DATE NOT NULL
+    "created_at" TIMESTAMP(3) NOT NULL,
+    "updated_at" TIMESTAMP(3) NOT NULL
 );
 
 -- CreateIndex
@@ -81,6 +81,9 @@ CREATE UNIQUE INDEX "users_id_key" ON "users"("id");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "shops_id_key" ON "shops"("id");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "shops_name_key" ON "shops"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "subsidiaries_id_key" ON "subsidiaries"("id");
