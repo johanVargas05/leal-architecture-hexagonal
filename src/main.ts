@@ -1,7 +1,9 @@
+import "module-alias/register";
+
+import routes from "@infrastructure/routes";
+import { config } from "@infrastructure/shared/config";
 import bodyParser from "body-parser";
 import express from "express";
-
-import { config } from "./shared/infrastructure/config";
 
 function bootstrap() {
   const app = express();
@@ -12,6 +14,7 @@ function bootstrap() {
     res.json({ ok: true, message: "Application loaded!" });
   });
 
+  app.use("/api", routes);
   const { port } = config.server;
 
   app.listen(port, () => {
