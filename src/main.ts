@@ -3,18 +3,17 @@ import "module-alias/register";
 import routes from "@infrastructure/routes";
 import { config } from "@infrastructure/shared/config";
 import bodyParser from "body-parser";
+import cors from "cors";
 import express from "express";
+import morgan from "morgan";
 
 function bootstrap() {
   const app = express();
-
+  app.use(cors());
+  app.use(morgan("dev"));
   app.use(bodyParser.json());
 
-  app.get("/", (_, res) => {
-    res.json({ ok: true, message: "Application loaded!" });
-  });
-
-  app.use("/api", routes);
+  app.use(routes);
   const { port } = config.server;
 
   app.listen(port, () => {

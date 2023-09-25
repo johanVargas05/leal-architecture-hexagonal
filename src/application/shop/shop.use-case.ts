@@ -10,6 +10,15 @@ export class ShopUseCase {
     conversion_points: number;
   }): Promise<ResponseEntity<ShopEntity>> {
     try {
+      if (
+        typeof data?.name !== "string" ||
+        typeof data.conversion_points !== "number"
+      )
+        return {
+          ok: false,
+          message: "Bad request or invalid input",
+          code: 400,
+        };
       const shopValue = new ShopValue(data);
       const shopCreated = await this.shopRepository.create(shopValue);
       return { ok: true, data: shopCreated, code: 201 };
