@@ -1,4 +1,4 @@
-import { ShopUseCase } from "@application/shop/shopUseCase";
+import { ShopUseCase } from "@application/shop/shop.use-case";
 import { Request, Response } from "express";
 
 export class ShopController {

@@ -1,4 +1,4 @@
-import { ShopUseCase } from "@application/shop/shopUseCase";
+import { ShopUseCase } from "@application/shop/shop.use-case";
 
 import { PrismaRepository } from "./repository/prisma.repository";
 import { ShopController } from "./shop.controller";
