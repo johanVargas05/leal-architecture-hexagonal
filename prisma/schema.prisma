@@ -46,8 +46,8 @@ model campaigns {
   id             String       @unique
   name           String
   description    String?
-  date_init      DateTime?
-  date_finish    DateTime?
+  date_init      DateTime
+  date_finish    DateTime
   reward         Float
   minimum_amount Int?
   shop           shops        @relation(fields: [shop_id], references: [id], onDelete: Cascade)

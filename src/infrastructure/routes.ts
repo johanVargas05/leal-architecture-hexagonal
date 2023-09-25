@@ -10,7 +10,7 @@ const specs = swaggerJsDoc(optionsSwagger);
 
 const routes = Router();
 routes.use(shopRoutes);
-routes.use("/shop", subsidiaryRoutes);
+routes.use(subsidiaryRoutes);
 routes.use("/api", routes);
 
 routes.get("/", (_, res) => {

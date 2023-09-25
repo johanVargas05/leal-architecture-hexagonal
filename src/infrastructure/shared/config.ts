@@ -18,5 +18,9 @@ export const optionsSwagger = {
       },
     ],
   },
-  apis: ["./src/infrastructure/shop/*.routes.ts"],
+  apis: [
+    "./src/infrastructure/shop/*.routes.ts",
+    "./src/infrastructure/subsidiary/*.routes.ts",
+    "./src/infrastructure/campaign/*.routes.ts",
+  ],
 };
