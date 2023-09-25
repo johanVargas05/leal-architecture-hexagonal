@@ -9,6 +9,7 @@ export interface ShopRepository {
     data: {
       name?: string;
       conversion_points?: number;
+      updated_at: Date;
     }
   ): Promise<ShopEntity>;
   delete(id: string): Promise<ShopEntity>;

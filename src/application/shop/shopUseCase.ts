@@ -43,7 +43,11 @@ export class ShopUseCase {
     data: { name?: string; conversion_points?: number }
   ): Promise<ResponseEntity<ShopEntity>> {
     try {
-      const shopUpdated = await this.shopRepository.update(shopId, data);
+      const updated_at = new Date();
+      const shopUpdated = await this.shopRepository.update(shopId, {
+        ...data,
+        updated_at,
+      });
       return { ok: true, data: shopUpdated, code: 200 };
     } catch (error) {
       return { ok: false, message: "Internal server error", code: 500, error };

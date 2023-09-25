@@ -6,8 +6,17 @@ export class ShopController {
 
   public create = async (req: Request, res: Response): Promise<void> => {
     const { body } = req;
-    const { code, ok, data, message } = await this.shopUseCase.createShop(body);
-    res.status(code).json({ ok, message, data });
+    const { code, ok, data, message, error } =
+      await this.shopUseCase.createShop(body);
+    res.status(code).json({ ok, message, data, error });
+  };
+
+  public update = async (req: Request, res: Response): Promise<void> => {
+    const { body, params } = req;
+    const id = params.id;
+    const { code, ok, data, message, error } =
+      await this.shopUseCase.updateShop(id, body);
+    res.status(code).json({ ok, message, data, error });
   };
 
   public findAll = async (req: Request, res: Response): Promise<void> => {

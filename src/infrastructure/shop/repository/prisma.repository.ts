@@ -23,7 +23,11 @@ export class PrismaRepository implements ShopRepository {
 
   async update(
     id: string,
-    data: { name?: string | undefined; conversion_points?: number | undefined }
+    data: {
+      name?: string | undefined;
+      conversion_points?: number | undefined;
+      updated_at: Date;
+    }
   ): Promise<ShopEntity> {
     return await this.prisma.shops.update({
       where: {
