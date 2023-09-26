@@ -82,6 +82,7 @@ model transactions {
   user_id          String
   subsidiary       subsidiaries     @relation(fields: [subsidiary_id], references: [id], onDelete: Cascade)
   subsidiary_id    String
+  description      String
   type_transaction TYPE_TRANSACTION
   type_currency    TYPE_CURRENCY
   valor            Int

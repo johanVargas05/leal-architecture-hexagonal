@@ -7,7 +7,7 @@ import { PrismaRepository } from "./repository/prisma.repository";
 const dbRepository = new PrismaRepository();
 const subsidiaryPrismaRepository = new SubsidiaryPrismaRepository();
 
-const campaignUseCase = new CampaignUseCase(
+export const campaignUseCase = new CampaignUseCase(
   dbRepository,
   subsidiaryPrismaRepository
 );
