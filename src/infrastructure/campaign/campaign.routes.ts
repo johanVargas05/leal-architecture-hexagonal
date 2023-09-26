@@ -131,7 +131,7 @@ route.get("/shop/:id/campaigns", campaignController.findByShop);
  *                data:
  *                  type: array
  *                  items:
- *                    $ref: '#/components/schemas/CampaignEntity'
+ *                    $ref: '#/components/schemas/Campaign'
  *      404:
  *        description: Subsidiary not found
  *        content:
@@ -167,7 +167,7 @@ route.get("/subsidiary/:id/campaigns", campaignController.findBySubsidiary);
  *                  type: boolean
  *                data:
  *                  type: object
- *                  $ref: '#/components/schemas/CampaignEntity'
+ *                  $ref: '#/components/schemas/Campaign'
  *      404:
  *        description: Campaign not found
  *        content:

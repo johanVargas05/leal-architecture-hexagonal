@@ -22,7 +22,7 @@ export class CampaignController {
     const { body, params } = req;
     const id = params.id;
     const { code, ok, data, message, error } =
-      await this.campaignUseCase.createCampaignShop(body, id);
+      await this.campaignUseCase.createCampaignSubsidiary(body, id);
     res.status(code).json({ ok, message, data, error });
   };
 

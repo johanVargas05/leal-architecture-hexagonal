@@ -51,8 +51,8 @@ CREATE TABLE
         "date_finish" TIMESTAMP(3) NOT NULL,
         "reward" DOUBLE PRECISION NOT NULL,
         "minimum_amount" INTEGER,
-        "shop_id" TEXT NOT NULL,
-        "subsidiary_id" TEXT NOT NULL,
+        "shop_id" TEXT,
+        "subsidiary_id" TEXT,
         "is_cumulative" BOOLEAN NOT NULL,
         "created_at" TIMESTAMP(3) NOT NULL,
         "updated_at" TIMESTAMP(3) NOT NULL

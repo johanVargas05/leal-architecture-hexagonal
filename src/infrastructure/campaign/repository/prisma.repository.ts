@@ -23,12 +23,12 @@ export class PrismaRepository implements CampaignRepository {
         AND: [
           {
             date_init: {
-              gte: date,
+              lte: date,
             },
           },
           {
             date_finish: {
-              lte: date,
+              gte: date,
             },
           },
           {
@@ -42,9 +42,11 @@ export class PrismaRepository implements CampaignRepository {
             ],
           },
           {
-            minimum_amount: {
-              gte: amount,
-            },
+            minimum_amount: amount
+              ? {
+                  lte: amount,
+                }
+              : undefined,
           },
         ],
       },
@@ -69,11 +71,13 @@ export class PrismaRepository implements CampaignRepository {
     return await this.prisma.campaigns.create({
       data: {
         ...data,
-        shop: { connect: { id: shopId } },
+        shop: { connect: shopId ? { id: shopId } : undefined },
         subsidiary: {
-          connect: {
-            id: subsidiaryId,
-          },
+          connect: subsidiaryId
+            ? {
+                id: subsidiaryId,
+              }
+            : undefined,
         },
       },
     });
