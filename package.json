@@ -70,8 +70,8 @@
     "uuid": "^9.0.1"
   },
   "_moduleAliases": {
-    "@domain": "src/domain/",
-    "@infrastructure": "src/infrastructure/",
-    "@application": "src/application/"
+    "@domain": "dist/src/domain/",
+    "@infrastructure": "dist/src/infrastructure/",
+    "@application": "dist/src/application/"
   }
 }
