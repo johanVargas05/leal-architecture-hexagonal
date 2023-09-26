@@ -2,7 +2,7 @@ import { ShopEntity } from "./shop.entity";
 
 export interface ShopRepository {
   findById(id: string): Promise<ShopEntity | null>;
-  finAll(): Promise<Array<ShopEntity> | []>;
+  findAll(): Promise<Array<ShopEntity> | []>;
   create(data: ShopEntity): Promise<ShopEntity>;
   update(
     id: string,

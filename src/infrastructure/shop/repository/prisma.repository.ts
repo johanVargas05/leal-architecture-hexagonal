@@ -12,7 +12,7 @@ export class PrismaRepository implements ShopRepository {
     return await this.prisma.shops.findUnique({ where: { id } });
   }
 
-  async finAll(): Promise<ShopEntity[] | []> {
+  async findAll(): Promise<ShopEntity[] | []> {
     return await this.prisma.shops.findMany();
   }
 

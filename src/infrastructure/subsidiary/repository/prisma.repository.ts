@@ -12,7 +12,7 @@ export class PrismaRepository implements SubsidiaryRepository {
     return await this.prisma.subsidiaries.findUnique({ where: { id } });
   }
 
-  async finAll(shopId: string): Promise<SubsidiaryEntity[] | []> {
+  async findAll(shopId: string): Promise<SubsidiaryEntity[] | []> {
     return await this.prisma.subsidiaries.findMany({
       where: { shop_id: shopId },
     });

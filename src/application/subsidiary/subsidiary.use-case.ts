@@ -26,7 +26,7 @@ export class SubsidiaryUseCase {
   async findAllSubsidiaries(
     shopId: string
   ): Promise<ResponseEntity<SubsidiaryEntity[]>> {
-    const data = await this.subsidiaryRepository.finAll(shopId);
+    const data = await this.subsidiaryRepository.findAll(shopId);
     return { ok: true, data, code: 200 };
   }
 

@@ -7,7 +7,7 @@ export class PrismaRepository implements CampaignRepository {
   constructor() {
     this.prisma = PrismaConnection.getInstance();
   }
-  async finAll({
+  async findAll({
     shopId,
     subsidiaryId,
     date,
@@ -53,7 +53,7 @@ export class PrismaRepository implements CampaignRepository {
     });
   }
 
-  async finById(campaignId: string): Promise<CampaignEntity | null> {
+  async findById(campaignId: string): Promise<CampaignEntity | null> {
     return await this.prisma.campaigns.findUnique({
       where: { id: campaignId },
     });

@@ -43,7 +43,7 @@ export class CampaignUseCase {
 
   async findById(campaignId: string): Promise<ResponseEntity<CampaignEntity>> {
     try {
-      const campaign = await this.campaignRepository.finById(campaignId);
+      const campaign = await this.campaignRepository.findById(campaignId);
       if (!campaign)
         return {
           ok: false,
@@ -64,28 +64,23 @@ export class CampaignUseCase {
     return await this.findCampaigns({ subsidiaryId });
   }
 
-  async totalOfPointsWithCampaigns(
+  async campaignsApply(
     subsidiaryId: string,
-    amount: number,
-    pointInit: number
-  ): Promise<number> {
-    let points = pointInit;
+    amount: number
+  ): Promise<Array<CampaignEntity>> {
     const subsidiary = await this.subsidiaryRepository.findById(subsidiaryId);
     const { data } = await this.findCampaigns({
       subsidiaryId,
       shopId: subsidiary?.shop_id,
       amount,
     });
-    if (!data) return points;
+    if (!data) return [];
     if (data.length > 1) {
       const campaignsFilter = data.filter((campaign) => campaign.is_cumulative);
-      campaignsFilter.forEach(
-        (campaign) => (points = points * campaign.reward)
-      );
+      return campaignsFilter;
     } else {
-      points = points * data[0].reward;
+      return data;
     }
-    return points;
   }
 
   async updateCampaign(
@@ -123,7 +118,7 @@ export class CampaignUseCase {
     amount?: number;
   }): Promise<ResponseEntity<CampaignEntity[]>> {
     const date = new Date();
-    const data = await this.campaignRepository.finAll({ ...filters, date });
+    const data = await this.campaignRepository.findAll({ ...filters, date });
     return { ok: true, data, code: 200 };
   }
 }

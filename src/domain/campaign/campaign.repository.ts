@@ -1,13 +1,13 @@
 import { CampaignEntity } from "./campaign.entity";
 
 export interface CampaignRepository {
-  finAll(filters: {
+  findAll(filters: {
     subsidiaryId?: string;
     shopId?: string;
     date: Date;
     amount?: number;
   }): Promise<Array<CampaignEntity> | []>;
-  finById(campaignId: string): Promise<CampaignEntity | null>;
+  findById(campaignId: string): Promise<CampaignEntity | null>;
   create(data: {
     data: CampaignEntity;
     subsidiaryId?: string;

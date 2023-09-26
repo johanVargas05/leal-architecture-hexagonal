@@ -23,5 +23,6 @@ export const optionsSwagger = {
     "./src/infrastructure/subsidiary/*.routes.ts",
     "./src/infrastructure/campaign/*.routes.ts",
     "./src/infrastructure/user/*.routes.ts",
+    "./src/infrastructure/point/*.routes.ts",
   ],
 };

@@ -28,7 +28,7 @@ export class ShopUseCase {
   }
 
   async findAllShops(): Promise<ResponseEntity<ShopEntity[]>> {
-    const data = await this.shopRepository.finAll();
+    const data = await this.shopRepository.findAll();
     return { ok: true, data, code: 200 };
   }
 
