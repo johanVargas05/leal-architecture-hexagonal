@@ -1,19 +1,26 @@
 import { Router } from "express";
 
-import { subsidiaryController } from "./dependencies";
+import { userController } from "./dependencies";
+
 /**
  * @swagger
  * components:
  *  schemas:
- *    Subsidiary:
+ *    User:
  *      type: object
  *      properties:
  *        id:
  *          type: string
- *          description: The auto-generated id of subsidiary
+ *          description: The auto-generated id of user
  *        name:
  *          type: string
- *          description: The name of the subsidiary
+ *          description: The name of the user
+ *        email:
+ *          type: string
+ *          description: The email of the user
+ *        balance:
+ *          type: integer
+ *          description: Number of user coins
  *        created_at:
  *          type: Date
  *          description: Date created
@@ -22,41 +29,40 @@ import { subsidiaryController } from "./dependencies";
  *          description: Date updated
  *      required:
  *        - name
- *        - conversion_points
+ *        - email
  *      example:
  *        id: 5fb11bd0-22e4-4aca-872c-0bd3a67ec50c
- *        name: Texaco #1
- *        shop_id: 5fb11bd0-22e4-4aca-872c-0bd3a67ec50c
+ *        name: Johan vargas
+ *        email: test@tes.com
+ *        balance_coins: 100
  *        created_at: 2023-09-25T15:32:27.240Z
  *        updated_at: 2023-09-25T15:32:27.240Z
  *  parameters:
- *    subsidiaryId:
+ *    userId:
  *      in: path
  *      name: id
  *      required: true
  *      schema:
  *        type: string
- *      description: the subsidiary id
+ *      description: the user id
  */
 /**
  * @swagger
  * tags:
- *  name: Subsidiary
- *  description: Subsidiaries endpoint
+ *  name: User
+ *  description: Users endpoint
  */
 
 const route = Router();
 /**
  * @swagger
- * /shop/{id}/subsidiaries:
+ * /users:
  *  get:
- *    summary: Get subsidiaries of a shop by ID
- *    tags: [Subsidiary, Shop]
- *    parameters:
- *      - $ref: '#/components/parameters/subsidiaryId'
+ *    summary: Get a list of all users
+ *    tags: [User]
  *    responses:
  *      200:
- *        description: List of subsidiaries
+ *        description: List of users
  *        content:
  *          application/json:
  *            schema:
@@ -67,9 +73,9 @@ const route = Router();
  *                data:
  *                  type: array
  *                  items:
- *                    $ref: '#/components/schemas/Subsidiary'
+ *                    $ref: '#/components/schemas/User'
  *      404:
- *        description: Shop not found
+ *        description: There are not users
  *        content:
  *          application/json:
  *            schema:
@@ -81,18 +87,18 @@ const route = Router();
  *            schema:
  *              $ref: '#/components/schemas/Error'
  */
-route.get("/shop/:id/subsidiaries", subsidiaryController.findAll);
+route.get("/users", userController.findAll);
 /**
  * @swagger
- * /subsidiary/{id}:
+ * /user/{id}:
  *  get:
- *    summary: Get a subsidiary by ID
- *    tags: [Subsidiary]
+ *    summary: Get a user by ID
+ *    tags: [User]
  *    parameters:
- *      - $ref: '#/components/parameters/subsidiaryId'
+ *      - $ref: '#/components/parameters/userId'
  *    responses:
  *      200:
- *        description: Information about the subsidiary
+ *        description: Information about the user
  *        content:
  *          application/json:
  *            schema:
@@ -102,9 +108,9 @@ route.get("/shop/:id/subsidiaries", subsidiaryController.findAll);
  *                  type: boolean
  *                data:
  *                  type: object
- *                  $ref: '#/components/schemas/Subsidiary'
+ *                  $ref: '#/components/schemas/User'
  *      404:
- *        description: Subsidiary not found
+ *        description: User not found
  *        content:
  *          application/json:
  *            schema:
@@ -116,17 +122,15 @@ route.get("/shop/:id/subsidiaries", subsidiaryController.findAll);
  *            schema:
  *              $ref: '#/components/schemas/Error'
  */
-route.get("/subsidiary/:id", subsidiaryController.findById);
+route.get("/user/:id", userController.findById);
 /**
  * @swagger
- * /shop/{id}/subsidiary:
+ * /user:
  *  post:
- *    summary: Create a new subsidiary for a shop
- *    tags: [Subsidiary, Shop]
- *    parameters:
- *      - $ref: '#/components/parameters/shopId'
+ *    summary: Create a new user
+ *    tags: [User]
  *    requestBody:
- *      description: Subsidiary data to create
+ *      description: User data to create
  *      required: true
  *      content:
  *        application/json:
@@ -135,12 +139,23 @@ route.get("/subsidiary/:id", subsidiaryController.findById);
  *            properties:
  *              name:
  *                type: string
- *                description: The name of the subsidiary
+ *                description: The  name of the user
+ *              email:
+ *                type: string
+ *                description: The  email of the user
+ *              balance:
+ *                type: integer
+ *                description: Beginning balance
  *            example:
- *              name: NewSubsidiary
+ *              name: Camilo Jimenez
+ *              email: test@test.com
+ *              balance: 10
+ *            required:
+ *              - name
+ *              - email
  *    responses:
  *      201:
- *        description: Subsidiary created successfully
+ *        description: User created successfully
  *        content:
  *          application/json:
  *            schema:
@@ -150,15 +165,9 @@ route.get("/subsidiary/:id", subsidiaryController.findById);
  *                  type: boolean
  *                data:
  *                  type: object
- *                  $ref: '#/components/schemas/Subsidiary'
+ *                  $ref: '#/components/schemas/User'
  *      400:
  *        description: Bad request, validation error, or invalid input
- *        content:
- *          application/json:
- *            schema:
- *              $ref: '#/components/schemas/Error'
- *      404:
- *        description: Shop not found
  *        content:
  *          application/json:
  *            schema:
@@ -170,17 +179,17 @@ route.get("/subsidiary/:id", subsidiaryController.findById);
  *            schema:
  *              $ref: '#/components/schemas/Error'
  */
-route.post("/shop/:id/subsidiary", subsidiaryController.create);
+route.post("/user", userController.create);
 /**
  * @swagger
- * /subsidiary/{id}:
+ * /user/{id}:
  *  patch:
- *    summary: Update an existing subsidiary by ID
- *    tags: [Subsidiary]
+ *    summary: Update an existing user by ID
+ *    tags: [User]
  *    parameters:
- *      - $ref: '#/components/parameters/subsidiaryId'
+ *      - $ref: '#/components/parameters/userId'
  *    requestBody:
- *      description: Updated subsidiary data
+ *      description: Updated user data
  *      required: true
  *      content:
  *        application/json:
@@ -189,22 +198,20 @@ route.post("/shop/:id/subsidiary", subsidiaryController.create);
  *            properties:
  *              name:
  *                type: string
- *                description: The updated name of the subsidiary
+ *                description: The  name of the user
+ *              email:
+ *                type: string
+ *                description: The  email of the user
  *            example:
- *              name: UpdatedSubsidiaryName
+ *              name: Camilo Jimenez
+ *              email: test@test.com
  *    responses:
  *      200:
- *        description: Subsidiary updated successfully
+ *        description: User updated successfully
  *        content:
  *          application/json:
  *            schema:
- *              type: object
- *              properties:
- *                ok:
- *                  type: boolean
- *                data:
- *                  type: object
- *                  $ref: '#/components/schemas/Subsidiary'
+ *              $ref: '#/components/schemas/User'
  *      400:
  *        description: Bad request, validation error, or invalid input
  *        content:
@@ -212,7 +219,7 @@ route.post("/shop/:id/subsidiary", subsidiaryController.create);
  *            schema:
  *              $ref: '#/components/schemas/Error'
  *      404:
- *        description: Subsidiary not found
+ *        description: User not found
  *        content:
  *          application/json:
  *            schema:
@@ -224,19 +231,18 @@ route.post("/shop/:id/subsidiary", subsidiaryController.create);
  *            schema:
  *              $ref: '#/components/schemas/Error'
  */
-route.patch("/subsidiary/:id", subsidiaryController.update);
-
+route.patch("/user/:id", userController.update);
 /**
  * @swagger
- * /subsidiary/{id}:
+ * /user/{id}:
  *  delete:
- *    summary: Delete a subsidiary by ID
- *    tags: [Subsidiary]
+ *    summary: Delete a user by ID
+ *    tags: [User]
  *    parameters:
- *      - $ref: '#/components/parameters/subsidiaryId'
+ *      - $ref: '#/components/parameters/userId'
  *    responses:
  *      200:
- *        description: Subsidiary deleted successfully
+ *        description: User deleted successfully
  *        content:
  *          application/json:
  *            schema:
@@ -246,9 +252,9 @@ route.patch("/subsidiary/:id", subsidiaryController.update);
  *                  type: boolean
  *                data:
  *                  type: object
- *                  $ref: '#/components/schemas/Subsidiary'
+ *                  $ref: '#/components/schemas/User'
  *      404:
- *        description: Subsidiary not found
+ *        description: User not found
  *        content:
  *          application/json:
  *            schema:
@@ -260,6 +266,6 @@ route.patch("/subsidiary/:id", subsidiaryController.update);
  *            schema:
  *              $ref: '#/components/schemas/Error'
  */
-route.delete("/subsidiary/:id", subsidiaryController.delete);
+route.delete("/user/:id", userController.delete);
 
 export default route;

@@ -16,6 +16,7 @@ model users {
   email         String
   balance_coins Int
   transactions  transactions[]
+  points        points[]
   created_at    DateTime
   updated_at    DateTime
 }
@@ -27,6 +28,7 @@ model shops {
   subsidiaries      subsidiaries[]
   campanies         campaigns[]
   rewards           rewards[]
+  points            points[]
   created_at        DateTime
   updated_at        DateTime
 }
@@ -86,6 +88,14 @@ model transactions {
   real_money       Int?
   created_at       DateTime
   updated_at       DateTime
+}
+
+model points {
+  id      String @unique
+  user    users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id String
+  shop    shops  @relation(fields: [shop_id], references: [id], onDelete: Cascade)
+  shop_id String
 }
 
 enum TYPE_TRANSACTION {

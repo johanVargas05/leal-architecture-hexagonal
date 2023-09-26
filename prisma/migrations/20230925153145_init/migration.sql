@@ -90,6 +90,19 @@ CREATE TABLE
         "updated_at" TIMESTAMP(3) NOT NULL
     );
 
+-- CreateTable
+
+CREATE TABLE
+    "points" (
+        "id" TEXT NOT NULL,
+        "user_id" TEXT NOT NULL,
+        "shop_id" TEXT NOT NULL
+    );
+
+-- CreateIndex
+
+CREATE UNIQUE INDEX "points_id_key" ON "points"("id");
+
 -- CreateIndex
 
 CREATE UNIQUE INDEX "users_id_key" ON "users"("id");
@@ -153,3 +166,15 @@ ADD
 ALTER TABLE "transactions"
 ADD
     CONSTRAINT "transactions_subsidiary_id_fkey" FOREIGN KEY ("subsidiary_id") REFERENCES "subsidiaries"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+
+ALTER TABLE "points"
+ADD
+    CONSTRAINT "points_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+
+ALTER TABLE "points"
+ADD
+    CONSTRAINT "points_shop_id_fkey" FOREIGN KEY ("shop_id") REFERENCES "shops"("id") ON DELETE CASCADE ON UPDATE CASCADE;
