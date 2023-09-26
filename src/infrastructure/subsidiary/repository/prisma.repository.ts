@@ -24,7 +24,10 @@ export class PrismaRepository implements SubsidiaryRepository {
   ): Promise<SubsidiaryEntity> {
     const result = await this.prisma.subsidiaries.create({
       data: {
-        ...data,
+        id: data.id,
+        name: data.name,
+        created_at: data.created_at,
+        updated_at: data.updated_at,
         shop: {
           connect: {
             id: shopId,

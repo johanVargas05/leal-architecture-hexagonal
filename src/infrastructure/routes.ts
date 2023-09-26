@@ -1,3 +1,4 @@
+import campaignRoutes from "@infrastructure/campaign/campaign.routes";
 import shopRoutes from "@infrastructure/shop/shop.routes";
 import subsidiaryRoutes from "@infrastructure/subsidiary/subsidiary.routes";
 import { Router } from "express";
@@ -11,6 +12,7 @@ const specs = swaggerJsDoc(optionsSwagger);
 const routes = Router();
 routes.use(shopRoutes);
 routes.use(subsidiaryRoutes);
+routes.use(campaignRoutes);
 routes.use("/api", routes);
 
 routes.get("/", (_, res) => {
