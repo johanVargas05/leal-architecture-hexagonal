@@ -216,7 +216,7 @@ route.get("/campaign/:id", campaignController.findById);
  *                description: The end date of the campaign.
  *              reward:
  *                type: number
- *                description: The reward associated with the campaign.
+ *                description: The reward associated with the campaign. Example 1.3 = 30% - 2 = double points.
  *              minimum_amount:
  *                type: number
  *                nullable: true
@@ -265,6 +265,7 @@ route.get("/campaign/:id", campaignController.findById);
  *              $ref: '#/components/schemas/Error'
  */
 route.post("/shop/:id/campaign", campaignController.createCampaignShop);
+
 /**
  * @swagger
  * /subsidiary/{id}/campaign:
@@ -298,7 +299,7 @@ route.post("/shop/:id/campaign", campaignController.createCampaignShop);
  *                description: The end date of the campaign.
  *              reward:
  *                type: number
- *                description: The reward associated with the campaign.
+ *                description: The reward associated with the campaign. Example 1.3 = 30% - 2 = double points.
  *              minimum_amount:
  *                type: number
  *                nullable: true
@@ -384,7 +385,7 @@ route.post(
  *                description: The end date of the campaign.
  *              reward:
  *                type: number
- *                description: The reward associated with the campaign.
+ *                description: The reward associated with the campaign. Example 1.3 = 30% - 2 = double points.
  *              minimum_amount:
  *                type: number
  *                nullable: true
