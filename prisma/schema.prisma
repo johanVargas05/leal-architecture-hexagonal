@@ -91,11 +91,14 @@ model transactions {
 }
 
 model points {
-  id      String @unique
-  user    users  @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  user_id String
-  shop    shops  @relation(fields: [shop_id], references: [id], onDelete: Cascade)
-  shop_id String
+  id             String   @unique
+  user           users    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  user_id        String
+  shop           shops    @relation(fields: [shop_id], references: [id], onDelete: Cascade)
+  shop_id        String
+  balance_points Int
+  created_at     DateTime
+  updated_at     DateTime
 }
 
 enum TYPE_TRANSACTION {

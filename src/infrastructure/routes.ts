@@ -1,4 +1,5 @@
 import campaignRoutes from "@infrastructure/campaign/campaign.routes";
+import pointRoutes from "@infrastructure/point/point.routes";
 import shopRoutes from "@infrastructure/shop/shop.routes";
 import subsidiaryRoutes from "@infrastructure/subsidiary/subsidiary.routes";
 import userRoutes from "@infrastructure/user/user.routes";
@@ -15,6 +16,7 @@ routes.use(shopRoutes);
 routes.use(subsidiaryRoutes);
 routes.use(campaignRoutes);
 routes.use(userRoutes);
+routes.use(pointRoutes);
 routes.use("/api", routes);
 
 routes.get("/", (_, res) => {

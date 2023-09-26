@@ -96,8 +96,11 @@ CREATE TABLE
     "points" (
         "id" TEXT NOT NULL,
         "user_id" TEXT NOT NULL,
-        "shop_id" TEXT NOT NULL
-    );
+        "shop_id" TEXT NOT NULL "balance_points" INTEGER NOT NULL,
+        "created_at" TIMESTAMP(3) NOT NULL,
+        "updated_at" TIMESTAMP(3) NOT NULL;
+
+);
 
 -- CreateIndex
 
